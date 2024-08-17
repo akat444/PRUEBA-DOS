@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interpretes - Página Principal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e0f7fa;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background-color: #0288d1;
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .header h1 {
+            margin: 0;
+        }
+        .nav {
+            position: relative;
+        }
+        .nav button {
+            background-color: #01579b;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .nav button:hover {
+            background-color: #013f6c;
+        }
+        .dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #0288d1;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 10px;
+            min-width: 150px;
+        }
+        .dropdown a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .dropdown a:hover {
+            background-color: #01579b;
+        }
+        .form-container {
+            display: none;
+            text-align: left;
+            margin: 20px auto;
+            width: 400px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        .form-container input, .form-container button {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .form-container button {
+            background-color: #0288d1;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .form-container button:hover {
+            background-color: #01579b;
+        }
+        .login-container {
+            text-align: center;
+            margin: 20px auto;
+            width: 300px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        .login-container input {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .login-container button {
+            background-color: #0288d1;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            padding: 10px;
+        }
+        .login-container button:hover {
+            background-color: #01579b;
+        }
+    </style>
+</head>
+<body>
+    <div id="login-container" class="login-container">
+        <h2>Acceso</h2>
+        <input type="password" id="password" placeholder="Introduce la contraseña">
+        <button onclick="checkPassword()">Login</button>
+    </div>
+
+    <div id="main-content" style="display: none;">
+        <div class="header">
+            <h1>Interpretes</h1>
+            <div class="nav">
+                <button id="scriptsBtn">Scripts</button>
+                <div id="dropdownMenu" class="dropdown">
+                    <a href="#">Guion 1</a>
+                    <a href="#">Guion 2</a>
+                    <a href="#">Guion 3</a>
+                    <!-- Añade más opciones de guiones aquí -->
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <button id="openFormBtn">Nuevo Dial Out</button>
+            <div class="form-container" id="formContainer">
+                <label for="patientName">Nombre del Paciente:</label>
+                <input type="text" id="patientName" placeholder="Nombre del Paciente">
+
+                <label for="phoneNumber">Número de Teléfono:</label>
+                <input type="text" id="phoneNumber" placeholder="Número de Teléfono">
+
+                <label for="voicemailNumber">Número de Correo de Voz:</label>
+                <input type="text" id="voicemailNumber" placeholder="Número de Correo de Voz">
+
+                <button id="submitBtn">Guardar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Función para comprobar la contraseña
+        function checkPassword() {
+            const password = document.getElementById('password').value;
+            if (password === 'ICCBPO') {
+                document.getElementById('login-container').style.display = 'none';
+                document.getElementById('main-content').style.display = 'block';
+            } else {
+                alert('Contraseña incorrecta.');
+            }
+        }
+
+        // Función para mostrar/ocultar el menú desplegable
+        document.getElementById('scriptsBtn').addEventListener('click', () => {
+            const dropdown = document.getElementById('dropdownMenu');
+            dropdown.style.display = dropdown.style.display === 'none' || dropdown.style.display === '' ? 'block' : 'none';
+        });
+
+        // Función para mostrar/ocultar el formulario
+        document.getElementById('openFormBtn').addEventListener('click', () => {
+            const formContainer = document.getElementById('formContainer');
+            formContainer.style.display = formContainer.style.display === 'none' || formContainer.style.display === '' ? 'block' : 'none';
+        });
+
+        // Función para manejar el envío del formulario
+        document.getElementById('submitBtn').addEventListener('click', () => {
+            const patientName = document.getElementById('patientName').value;
+            const phoneNumber = document.getElementById('phoneNumber').value;
+            const voicemailNumber = document.getElementById('voicemailNumber').value;
+
+            if (patientName && phoneNumber && voicemailNumber) {
+                alert(`Paciente: ${patientName}\nTeléfono: ${phoneNumber}\nCorreo de Voz: ${voicemailNumber}`);
+                document.getElementById('formContainer').style.display = 'none';
+            } else {
+                alert('Por favor, complete todos los campos.');
+            }
+        });
+    </script>
+</body>
+</html>
